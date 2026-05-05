@@ -1,5 +1,3 @@
-import { env } from '../config/env.js';
-
 export const analyzeBusiness = async (formData) => {
   // Using NVIDIA NIM completion endpoint (or adapt if different)
   // We're using standard fetch here, adjust URL based on the exact model
@@ -29,7 +27,7 @@ Return ONLY valid JSON.
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${env.NVIDIA_API_KEY}`
+        'Authorization': `Bearer ${process.env.NVIDIA_API_KEY}`
       },
       body: JSON.stringify({
         model: 'nvidia/nemotron-3-nano-30b-a3b', 
@@ -96,7 +94,7 @@ Use standard markdown formatting (including proper \\n for line breaks, lists, a
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${env.NVIDIA_API_KEY}`
+        'Authorization': `Bearer ${process.env.NVIDIA_API_KEY}`
       },
       body: JSON.stringify({
         model: 'nvidia/nemotron-3-nano-30b-a3b',

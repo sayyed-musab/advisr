@@ -11,14 +11,14 @@ This is the Express.js backend for Zuvio, providing authentication, email verifi
 - **Password Hashing**: bcryptjs
 - **Email Delivery**: Nodemailer
 - **Validation**: Zod
-- **AI Integration**: NVIDIA NIM API
-- **Dev Tools**: nodemon, dotenv
+- **AI Integration**: NVIDIA NIM API (using `nvidia/nemotron-3-nano-30b-a3b`)
+- **Dev Tools**: nodemon
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js (v18+ recommended)
+- Node.js (v20.6.0+)
 - MongoDB instance (local or MongoDB Atlas)
 - SMTP account for email delivery
 - NVIDIA API Key
@@ -87,7 +87,7 @@ The API uses standard HTTP response codes and a consistent JSON response format:
 ```
 server/
 ├── src/
-│   ├── config/          # Environment and Database configuration
+│   ├── config/          # Database configuration
 │   ├── controllers/     # Route handlers mapping requests to services
 │   ├── middlewares/     # Auth, validation, and error middlewares
 │   ├── models/          # Mongoose DB schemas
