@@ -1,0 +1,20 @@
+# Root Gitignore
+node_modules
+.DS_Store
+.env
+
+# Vite/Client
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
