@@ -1,7 +1,9 @@
 export const analyzeBusiness = async (formData) => {
   // Using NVIDIA NIM completion endpoint (or adapt if different)
   // We're using standard fetch here, adjust URL based on the exact model
-  const prompt = `You are an expert business consultant. Analyze the following business profile and provide a JSON response with EXACTLY three keys: "diagnosis", "actionPlan", and "prioritySteps".
+  const prompt = `You are an expert Business Consultant specializing in Small and Medium Enterprises (SMEs) and local shop owners in India.
+Analyze the following business profile and provide a JSON response with EXACTLY three keys: "diagnosis", "actionPlan", and "prioritySteps".
+Make sure your advice is highly practical and tailored to the Indian market. Use Indian Rupees (₹) for any financial estimates, reference relevant local marketing channels (e.g., WhatsApp Business, UPI, local SEO, Instagram, Justdial), and provide realistic, culturally-aware examples that a small business owner in India can actually implement.
 The values for these keys MUST be formatted as plain text strings.
 CRITICAL FORMATTING RULES:
 1. You may use markdown, but you MUST use proper newline characters (\\n) before any bullet points, lists, or paragraphs.
@@ -82,11 +84,12 @@ Return ONLY valid JSON.
 };
 
 export const answerFollowup = async (session, question) => {
-  const prompt = `You are an expert business consultant. The user previously shared this about their business:
+  const prompt = `You are an expert Business Consultant specializing in Small Indian Businesses and local shop owners. The user previously shared this about their Indian business:
 Type: ${session.businessType}, Problem: ${session.problemArea}, Details: ${session.detail}
 
 They have a follow-up question: "${question}"
 Please provide a helpful, concise answer.
+Ensure your advice is highly relevant to the Indian market. Use Indian Rupees (₹) for money, reference local apps/strategies (like UPI, WhatsApp Business, Swiggy/Zomato if food, local vendors), and give culturally relevant examples.
 Use standard markdown formatting (including proper \\n for line breaks, lists, and markdown tables if necessary).`;
 
   try {
