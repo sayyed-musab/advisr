@@ -3,7 +3,13 @@ import { env } from '../config/env.js';
 export const analyzeBusiness = async (formData) => {
   // Using NVIDIA NIM completion endpoint (or adapt if different)
   // We're using standard fetch here, adjust URL based on the exact model
-  const prompt = `You are a business consultant. Please analyze the following business profile and provide a JSON response with "diagnosis", "actionPlan", and "prioritySteps".
+  const prompt = `You are an expert business consultant. Analyze the following business profile and provide a JSON response with EXACTLY three keys: "diagnosis", "actionPlan", and "prioritySteps".
+The values for these keys MUST be formatted as plain text strings.
+CRITICAL FORMATTING RULES:
+1. You may use markdown, but you MUST use proper newline characters (\\n) before any bullet points, lists, or paragraphs.
+2. DO NOT output bullet points on a single line. Separate them with \\n.
+3. If you use tables, format them using standard GitHub Flavored Markdown tables.
+4. DO NOT use nested JSON objects or arrays for the values.
   
 Profile:
 Business Type: ${formData.businessType}
@@ -26,9 +32,9 @@ Return ONLY valid JSON.
         'Authorization': `Bearer ${env.NVIDIA_API_KEY}`
       },
       body: JSON.stringify({
-        model: 'meta/llama3-70b-instruct', // Or whatever model is required
+        model: 'nvidia/nemotron-3-nano-30b-a3b', 
         messages: [{ role: 'user', content: prompt }],
-        max_tokens: 1024,
+        max_tokens: 4096,
         temperature: 0.2
       })
     });
@@ -38,20 +44,39 @@ Return ONLY valid JSON.
     }
 
     const data = await response.json();
-    const content = data.choices[0].message.content;
+    const content = data.choices?.[0]?.message?.content || "";
     
-    // Attempt to extract JSON from the response
-    const jsonMatch = content.match(/\{[\s\S]*\}/);
-    if (jsonMatch) {
-      return JSON.parse(jsonMatch[0]);
+    try {
+      // Clean up markdown block if present
+      let cleanContent = content.trim();
+      if (cleanContent.startsWith('```json')) {
+        cleanContent = cleanContent.replace(/^```json/, '').replace(/```$/, '').trim();
+      } else if (cleanContent.startsWith('```')) {
+        cleanContent = cleanContent.replace(/^```/, '').replace(/```$/, '').trim();
+      }
+      
+      // Extract from first { to last }
+      const startIdx = cleanContent.indexOf('{');
+      const endIdx = cleanContent.lastIndexOf('}');
+      if (startIdx !== -1 && endIdx !== -1) {
+        cleanContent = cleanContent.substring(startIdx, endIdx + 1);
+      }
+
+      const parsed = JSON.parse(cleanContent);
+      return {
+        diagnosis: typeof parsed.diagnosis === 'string' ? parsed.diagnosis : JSON.stringify(parsed.diagnosis, null, 2),
+        actionPlan: typeof parsed.actionPlan === 'string' ? parsed.actionPlan : JSON.stringify(parsed.actionPlan, null, 2),
+        prioritySteps: typeof parsed.prioritySteps === 'string' ? parsed.prioritySteps : JSON.stringify(parsed.prioritySteps, null, 2),
+      };
+    } catch (e) {
+      console.error("Failed to parse JSON:", e, content);
+      // Fallback if not perfectly formatted JSON
+      return {
+        diagnosis: content || "The AI model returned an empty response.",
+        actionPlan: "Unable to extract action plan from the AI response.",
+        prioritySteps: "Unable to extract priority steps from the AI response."
+      };
     }
-    
-    // Fallback if not perfectly formatted JSON
-    return {
-      diagnosis: content,
-      actionPlan: "Extracted from content.",
-      prioritySteps: "Extracted from content."
-    };
   } catch (error) {
     console.error('NVIDIA API Error:', error);
     throw new Error('Failed to analyze business data with AI.');
@@ -59,11 +84,12 @@ Return ONLY valid JSON.
 };
 
 export const answerFollowup = async (session, question) => {
-  const prompt = `You are a business consultant. The user previously shared this about their business:
+  const prompt = `You are an expert business consultant. The user previously shared this about their business:
 Type: ${session.businessType}, Problem: ${session.problemArea}, Details: ${session.detail}
 
 They have a follow-up question: "${question}"
-Please provide a helpful, concise answer.`;
+Please provide a helpful, concise answer.
+Use standard markdown formatting (including proper \\n for line breaks, lists, and markdown tables if necessary).`;
 
   try {
     const response = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
@@ -73,9 +99,9 @@ Please provide a helpful, concise answer.`;
         'Authorization': `Bearer ${env.NVIDIA_API_KEY}`
       },
       body: JSON.stringify({
-        model: 'meta/llama3-70b-instruct',
+        model: 'nvidia/nemotron-3-nano-30b-a3b',
         messages: [{ role: 'user', content: prompt }],
-        max_tokens: 512,
+        max_tokens: 2048,
         temperature: 0.5
       })
     });
@@ -85,7 +111,7 @@ Please provide a helpful, concise answer.`;
     }
 
     const data = await response.json();
-    return data.choices[0].message.content;
+    return data.choices?.[0]?.message?.content || "The AI model returned an empty response.";
   } catch (error) {
     console.error('NVIDIA API Error:', error);
     throw new Error('Failed to answer follow-up question.');

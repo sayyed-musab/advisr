@@ -1,4 +1,6 @@
 import { Activity, Target, Zap } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 export const ReportSection = ({ title, content, type }) => {
   const getIcon = () => {
@@ -19,14 +21,18 @@ export const ReportSection = ({ title, content, type }) => {
     }
   };
 
+  const formattedContent = typeof content === 'string' 
+    ? content.replace(/(?<=[\w.!?])\s+([*-])\s+/g, '\n\n$1 ') 
+    : content;
+
   return (
     <div className={`rounded-xl border p-6 ${getBgColor()}`}>
       <div className="flex items-center gap-2 mb-4">
         {getIcon()}
         <h3 className="text-lg font-bold text-gray-900">{title}</h3>
       </div>
-      <div className="prose prose-sm max-w-none text-gray-700 whitespace-pre-wrap">
-        {content}
+      <div className="prose prose-sm max-w-none text-gray-700">
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>{formattedContent}</ReactMarkdown>
       </div>
     </div>
   );

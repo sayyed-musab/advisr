@@ -1,18 +1,22 @@
 import { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useConsultStore } from '../../store/consultStore.js';
 import { Button } from '../ui/Button.jsx';
 import { Input } from '../ui/Input.jsx';
-import { Send, User, Bot } from 'lucide-react';
+import { Send, User, Bot, Maximize2, Minimize2 } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 export const FollowupChat = ({ sessionId, followups = [] }) => {
   const [question, setQuestion] = useState('');
+  const [isFullScreen, setIsFullScreen] = useState(false);
   const { sendFollowup, isLoading } = useConsultStore();
   const bottomRef = useRef(null);
 
   // Scroll to bottom when followups change
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [followups]);
+  }, [followups, isFullScreen]); // also scroll when fullscreen changes
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,11 +33,21 @@ export const FollowupChat = ({ sessionId, followups = [] }) => {
     }
   };
 
-  return (
-    <div className="flex flex-col h-[500px] rounded-xl border border-gray-200 bg-white overflow-hidden shadow-sm">
-      <div className="bg-gray-50 p-4 border-b border-gray-200">
-        <h3 className="font-bold text-gray-900">Follow-up Questions</h3>
-        <p className="text-xs text-gray-500">Ask our AI consultant for clarification or more details.</p>
+  const chatInner = (
+    <>
+      <div className="bg-gray-50 p-4 border-b border-gray-200 flex justify-between items-center">
+        <div>
+          <h3 className="font-bold text-gray-900">Follow-up Questions</h3>
+          <p className="text-xs text-gray-500">Ask our AI consultant for clarification or more details.</p>
+        </div>
+        <button 
+          type="button"
+          onClick={() => setIsFullScreen(!isFullScreen)}
+          className="p-2 hover:bg-gray-200 rounded-md transition-colors text-gray-600"
+          title={isFullScreen ? "Exit Fullscreen" : "Fullscreen"}
+        >
+          {isFullScreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
+        </button>
       </div>
 
       <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50/50">
@@ -59,8 +73,8 @@ export const FollowupChat = ({ sessionId, followups = [] }) => {
                 <div className="h-8 w-8 rounded-full bg-purple-100 flex flex-shrink-0 items-center justify-center">
                   <Bot className="h-4 w-4 text-purple-600" />
                 </div>
-                <div className="bg-white border border-gray-200 text-gray-800 rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%] text-sm whitespace-pre-wrap shadow-sm">
-                  {f.answer}
+                <div className="bg-white border border-gray-200 text-gray-800 rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%] text-sm shadow-sm prose prose-sm prose-p:my-1 prose-ul:my-1 prose-ol:my-1 max-w-full overflow-x-auto">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{f.answer}</ReactMarkdown>
                 </div>
               </div>
             </div>
@@ -95,6 +109,38 @@ export const FollowupChat = ({ sessionId, followups = [] }) => {
           </Button>
         </form>
       </div>
+    </>
+  );
+
+  if (isFullScreen) {
+    return (
+      <>
+        {/* Placeholder so the layout doesn't jump when chat goes fullscreen */}
+        <div className="h-[500px] rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 flex items-center justify-center text-gray-400">
+          Chat is running in fullscreen mode...
+        </div>
+        
+        {createPortal(
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 md:p-10">
+            {/* Backdrop */}
+            <div 
+              className="absolute inset-0 bg-black/40 backdrop-blur-sm" 
+              onClick={() => setIsFullScreen(false)} 
+            />
+            {/* Modal */}
+            <div className="relative flex flex-col w-full h-full bg-white rounded-2xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+              {chatInner}
+            </div>
+          </div>,
+          document.body
+        )}
+      </>
+    );
+  }
+
+  return (
+    <div className="flex flex-col h-[500px] rounded-xl border border-gray-200 bg-white overflow-hidden shadow-sm relative">
+      {chatInner}
     </div>
   );
 };
