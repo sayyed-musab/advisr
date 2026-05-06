@@ -1,6 +1,7 @@
 import { Activity, Target, Zap } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 
 export const ReportSection = ({ title, content, type }) => {
   const getIcon = () => {
@@ -21,8 +22,10 @@ export const ReportSection = ({ title, content, type }) => {
     }
   };
 
-  const formattedContent = typeof content === 'string' 
-    ? content.replace(/(?<=[\w.!?])\s+([*-])\s+/g, '\n\n$1 ') 
+  const formattedContent = typeof content === 'string'
+    ? content
+        .replace(/<br\s*\/?>/gi, '\n')   // convert <br> tags to newlines
+        .replace(/(?<=[\w.!?])\s+([*-])\s+/g, '\n\n$1 ')  // separate inline bullets
     : content;
 
   return (
@@ -32,7 +35,7 @@ export const ReportSection = ({ title, content, type }) => {
         <h3 className="text-lg font-bold text-gray-900">{title}</h3>
       </div>
       <div className="prose prose-sm max-w-none text-gray-700">
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>{formattedContent}</ReactMarkdown>
+        <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>{formattedContent}</ReactMarkdown>
       </div>
     </div>
   );

@@ -6,12 +6,24 @@ import { Input } from '../ui/Input.jsx';
 import { Send, User, Bot, Maximize2, Minimize2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
+
 
 export const FollowupChat = ({ sessionId, followups = [] }) => {
   const [question, setQuestion] = useState('');
   const [isFullScreen, setIsFullScreen] = useState(false);
   const { sendFollowup, isLoading } = useConsultStore();
   const bottomRef = useRef(null);
+
+  // Format content to handle inline bullets
+  const formatContent = (content) => {
+    if (typeof content !== 'string') return content;
+    
+    return content
+      .replace(/<br\s*\/?>/gi, '\n')   // convert <br> tags to newlines
+      .replace(/(?<=.*[*\-])\s+(?=[\da-zA-Z])(?![\s\n])/g, '\n\n'); // add space before inline bullets
+      
+  };
 
   // Scroll to bottom when followups change
   useEffect(() => {
@@ -74,7 +86,7 @@ export const FollowupChat = ({ sessionId, followups = [] }) => {
                   <Bot className="h-4 w-4 text-[#76b900]" />
                 </div>
                 <div className="bg-white border border-gray-200 text-gray-800 rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%] text-sm shadow-sm prose prose-sm prose-p:my-1 prose-ul:my-1 prose-ol:my-1 max-w-full overflow-x-auto">
-                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{f.answer}</ReactMarkdown>
+                  <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>{f.answer}</ReactMarkdown>
                 </div>
               </div>
             </div>
