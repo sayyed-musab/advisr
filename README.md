@@ -4,6 +4,10 @@ Advisr is an intelligent web application designed specifically to act as an AI B
 
 By simply typing out their current business profile and the specific problems they are facing, business owners receive a comprehensive, structured response. Advisr leverages the long-context reasoning strengths of NVIDIA's Nemotron models to think deeply through the problem, providing a tailored **Diagnosis**, an actionable **Action Plan**, and immediate **Priority Steps**.
 
+## Demo
+
+![Advisr - Full Working Demo](./working.gif)
+
 ## How It Works
 
 1. **Intake**: A business owner provides their business type, current challenges, and specific details.
