@@ -11,19 +11,20 @@ import consultRoutes from './routes/consult.routes.js';
 connectDB();
 
 const app = express();
+const corsOptions = {
+  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+// Respond 204 to all preflight OPTIONS requests immediately
+app.options('/{*path}', cors(corsOptions));
 
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(
-  cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: true,
-    credentials: true,
-  })
-);
 
 // Routes
 app.use('/api/auth', authRoutes);
