@@ -9,8 +9,8 @@ export const validate = (schema) => (req, res, next) => {
     });
     next();
   } catch (err) {
-    // Send back the first validation error message
-    const message = err.errors[0].message;
+    // Guard against non-Zod errors where err.errors may be undefined
+    const message = err.errors?.[0]?.message ?? 'Validation failed';
     return sendError(res, 400, message);
   }
 };

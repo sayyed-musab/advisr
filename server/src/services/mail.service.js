@@ -14,11 +14,11 @@ export const sendVerificationEmail = async (email, token) => {
   const verifyUrl = `${process.env.CLIENT_URL}/verify-email?token=${token}`;
   
   const mailOptions = {
-    from: `"Zuvio" <${process.env.SMTP_USER}>`,
+    from: `"Advisr" <${process.env.SMTP_USER}>`,
     to: email,
     subject: 'Verify your email address',
     html: `
-      <h1>Welcome to Zuvio!</h1>
+      <h1>Welcome to Advisr!</h1>
       <p>Please verify your email by clicking the link below:</p>
       <a href="${verifyUrl}">${verifyUrl}</a>
     `,

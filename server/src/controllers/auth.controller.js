@@ -32,7 +32,7 @@ export const login = async (req, res, next) => {
     const { user, token } = await authService.login(email, password);
 
     // Set HTTP-only cookie
-    res.cookie('zuvio_token', token, {
+    res.cookie('advisr_token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
@@ -51,7 +51,7 @@ export const login = async (req, res, next) => {
 
 export const logout = async (req, res, next) => {
   try {
-    res.clearCookie('zuvio_token', {
+    res.clearCookie('advisr_token', {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict'

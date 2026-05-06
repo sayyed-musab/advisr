@@ -4,7 +4,7 @@ import { sendError } from '../utils/response.js';
 
 export const protect = async (req, res, next) => {
   try {
-    const token = req.cookies.zuvio_token;
+    const token = req.cookies.advisr_token;
 
     if (!token) {
       return sendError(res, 401, 'Unauthorized - No token provided');

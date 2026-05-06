@@ -24,7 +24,15 @@ export const signup = async (userData) => {
     verificationTokenExpiresAt,
   });
 
-  await mailService.sendVerificationEmail(email, verificationToken);
+  try {
+    await mailService.sendVerificationEmail(email, verificationToken);
+  } catch (mailError) {
+    // Rollback: delete the user so they can retry signup with the same email
+    await User.findByIdAndDelete(user._id);
+    const error = new Error('Failed to send verification email. Please try again.');
+    error.statusCode = 503;
+    throw error;
+  }
 
   return user;
 };
