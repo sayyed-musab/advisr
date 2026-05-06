@@ -4,15 +4,43 @@ This is the React frontend for Advisr, an AI-powered business consultation appli
 
 ## Tech Stack
 
-- **Framework**: React 18
-- **Build Tool**: Vite
-- **Styling**: Tailwind CSS (with `@tailwindcss/typography` for markdown styling)
-- **Animations**: `framer-motion` for fluid page transitions and micro-interactions
-- **State Management**: Zustand
-- **Routing**: React Router v6
-- **Icons**: Lucide React
-- **Markdown Rendering**: `react-markdown` with `remark-gfm` (for GitHub Flavored Markdown support)
-- **Notifications**: React Hot Toast
+### Runtime Dependencies
+
+| Package | Version | Purpose |
+|---------|---------|---------|
+| `react` | ^19.2.5 | Core UI library |
+| `react-dom` | ^19.2.5 | DOM rendering |
+| `react-router-dom` | ^7.15.0 | Client-side routing |
+| `zustand` | ^5.0.13 | Global state management |
+| `axios` | ^1.16.0 | HTTP client for API calls |
+| `react-hook-form` | ^7.75.0 | Form state and validation |
+| `@hookform/resolvers` | ^5.2.2 | Zod adapter for react-hook-form |
+| `zod` | ^4.4.3 | Schema validation |
+| `framer-motion` | ^12.38.0 | Page and component animations |
+| `lucide-react` | ^1.14.0 | Icon library |
+| `react-hot-toast` | ^2.6.0 | Toast notifications |
+| `react-markdown` | ^10.1.0 | Markdown rendering for AI reports |
+| `remark-gfm` | ^4.0.1 | GitHub Flavored Markdown (tables, strikethrough) |
+| `rehype-raw` | ^7.0.0 | Raw HTML rendering inside markdown |
+| `tailwindcss` | ^4.2.4 | Utility-first CSS framework |
+| `@tailwindcss/vite` | ^4.2.4 | Tailwind v4 Vite plugin |
+| `@tailwindcss/typography` | ^0.5.19 | Prose styling for AI report content |
+| `clsx` | ^2.1.1 | Conditional class names |
+| `tailwind-merge` | ^3.5.0 | Safe Tailwind class merging |
+
+### Dev Dependencies
+
+| Package | Version | Purpose |
+|---------|---------|---------|
+| `vite` | ^8.0.10 | Build tool and dev server |
+| `@vitejs/plugin-react` | ^6.0.1 | React Fast Refresh for Vite |
+| `eslint` | ^10.2.1 | Code linting |
+| `eslint-plugin-react-hooks` | ^7.1.1 | React Hooks lint rules |
+| `eslint-plugin-react-refresh` | ^0.5.2 | React Refresh lint rules |
+| `@eslint/js` | ^10.0.1 | ESLint JS config |
+| `@types/react` | ^19.2.14 | TypeScript types for React |
+| `@types/react-dom` | ^19.2.3 | TypeScript types for ReactDOM |
+| `globals` | ^17.5.0 | Global variable definitions for ESLint |
 
 ## Project Structure
 
