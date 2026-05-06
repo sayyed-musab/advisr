@@ -32,10 +32,11 @@ export const login = async (req, res, next) => {
     const { user, token } = await authService.login(email, password);
 
     // Set HTTP-only cookie
+    // SameSite 'none' + Secure required for cross-domain (client & server on different origins)
     res.cookie('advisr_token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      secure: true,
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
       maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     });
 
@@ -53,8 +54,8 @@ export const logout = async (req, res, next) => {
   try {
     res.clearCookie('advisr_token', {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict'
+      secure: true,
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
     });
     return sendSuccess(res, 200, 'Logged out successfully.');
   } catch (error) {
