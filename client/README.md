@@ -1,6 +1,6 @@
-# Zuvio Frontend
+# Advisr Frontend
 
-This is the React frontend for Zuvio, an AI-powered business consultation application. It is built using modern web development practices, focusing on a responsive, user-friendly, and highly interactive interface.
+This is the React frontend for Advisr, an AI-powered business consultation application. It is built using modern web development practices, focusing on a responsive, user-friendly, and highly interactive interface.
 
 ## Tech Stack
 
@@ -67,7 +67,7 @@ src/
 ### Prerequisites
 
 - Node.js (v18+ recommended)
-- The Zuvio Backend server running locally on port 5000 (or configured otherwise).
+- The Advisr Backend server running locally on port 5000 (or configured otherwise).
 
 ### Installation
 

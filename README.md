@@ -1,8 +1,8 @@
-# Zuvio - AI Business Consultant for Small Indian Businesses
+# Advisr - AI Business Consultant for Small Indian Businesses
 
-Zuvio is an intelligent web application designed specifically to act as an AI Business Consultant for small shop owners and businesses in India. 
+Advisr is an intelligent web application designed specifically to act as an AI Business Consultant for small shop owners and businesses in India. 
 
-By simply typing out their current business profile and the specific problems they are facing, business owners receive a comprehensive, structured response. Zuvio leverages the long-context reasoning strengths of NVIDIA's Nemotron models to think deeply through the problem, providing a tailored **Diagnosis**, an actionable **Action Plan**, and immediate **Priority Steps**.
+By simply typing out their current business profile and the specific problems they are facing, business owners receive a comprehensive, structured response. Advisr leverages the long-context reasoning strengths of NVIDIA's Nemotron models to think deeply through the problem, providing a tailored **Diagnosis**, an actionable **Action Plan**, and immediate **Priority Steps**.
 
 ## How It Works
 
@@ -13,7 +13,7 @@ By simply typing out their current business profile and the specific problems th
 
 ## Project Architecture
 
-Zuvio is built as a modern full-stack web application using the MERN stack (MongoDB, Express, React, Node.js). 
+Advisr is built as a modern full-stack web application using the MERN stack (MongoDB, Express, React, Node.js). 
 
 The repository is split into two main workspaces:
 

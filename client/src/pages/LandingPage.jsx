@@ -134,7 +134,7 @@ export const LandingPage = () => {
         <section id="features" className="py-24 bg-gray-50 border-y border-gray-200">
           <div className="max-w-7xl mx-auto px-6 md:px-12">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold mb-4 text-gray-900">Why Zuvio works</h2>
+              <h2 className="text-3xl md:text-5xl font-bold mb-4 text-gray-900">Why Advisr works</h2>
               <p className="text-gray-600 max-w-2xl mx-auto">We abandoned generic "chatbots" to build an AI that possesses the context and reasoning capability of a tier-one consulting firm.</p>
             </div>
 
@@ -143,7 +143,7 @@ export const LandingPage = () => {
                 delay={0}
                 icon={Brain}
                 title="Deep Context Reasoning"
-                description="Powered by NVIDIA Nemotron's massive context window, Zuvio thinks deeply through your exact scenario before answering."
+                description="Powered by NVIDIA Nemotron's massive context window, Advisr thinks deeply through your exact scenario before answering."
               />
               <FeatureCard 
                 delay={0.2}
@@ -237,7 +237,7 @@ export const LandingPage = () => {
       </main>
 
       <footer className="border-t border-gray-200 py-12 text-center text-gray-500 text-sm bg-gray-50">
-        <p>© {new Date().getFullYear()} Zuvio. Built for Indian Businesses.</p>
+        <p>© {new Date().getFullYear()} Advisr. Built for Indian Businesses.</p>
       </footer>
     </div>
   );

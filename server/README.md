@@ -1,6 +1,6 @@
-# Zuvio Backend
+# Advisr Backend
 
-This is the Express.js backend for Zuvio, providing authentication, email verification, and AI-powered business consultation using NVIDIA's API.
+This is the Express.js backend for Advisr, providing authentication, email verification, and AI-powered business consultation using NVIDIA's API.
 
 ## Tech Stack
 

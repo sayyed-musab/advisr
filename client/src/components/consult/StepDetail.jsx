@@ -3,7 +3,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useConsultStore } from '../../store/consultStore.js';
 import { Button } from '../ui/Button.jsx';
-import { Input } from '../ui/Input.jsx';
 import { Select } from '../ui/Select.jsx';
 import { Textarea } from '../ui/Textarea.jsx';
 import toast from 'react-hot-toast';
@@ -25,10 +24,10 @@ const problemOptions = [
 ];
 
 const urgencyOptions = [
-  'Critical — Need to act now',
-  'Important — Needs attention soon',
-  'Moderate — Planning for next quarter',
-  'Low — Just exploring ideas',
+  'Critical: Need to act now',
+  'Important: Needs attention soon',
+  'Moderate: Planning for next quarter',
+  'Low: Just exploring ideas',
 ];
 
 export const StepDetail = () => {
