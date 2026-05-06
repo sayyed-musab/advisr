@@ -7,6 +7,7 @@ This is the React frontend for Zuvio, an AI-powered business consultation applic
 - **Framework**: React 18
 - **Build Tool**: Vite
 - **Styling**: Tailwind CSS (with `@tailwindcss/typography` for markdown styling)
+- **Animations**: `framer-motion` for fluid page transitions and micro-interactions
 - **State Management**: Zustand
 - **Routing**: React Router v6
 - **Icons**: Lucide React
@@ -34,6 +35,7 @@ src/
 ├── pages/           # High-level page components mapped to routes
 │   ├── ConsultPage.jsx      # The consultation wizard page
 │   ├── DashboardPage.jsx    # User session history dashboard
+│   ├── LandingPage.jsx      # Premium root landing page with Framer Motion animations
 │   ├── LoginPage.jsx        # User login
 │   ├── SessionPage.jsx      # Detailed view of a past consultation report
 │   ├── SignupPage.jsx       # User registration
@@ -53,6 +55,7 @@ src/
 
 ## Key Features
 
+- **Premium Landing Page**: A visually stunning, conversion-optimized landing page built with `framer-motion` to immediately convey trust and capability.
 - **Multi-Step Consultation Wizard**: Guides users through providing their business profile and problems in a structured, step-by-step UI.
 - **Dynamic AI Reports**: Renders complex, AI-generated markdown reports beautifully using `@tailwindcss/typography`.
 - **Fullscreen Follow-up Chat**: A React Portal-powered fullscreen chat interface for asking the AI follow-up questions about the generated report, without breaking the underlying layout.

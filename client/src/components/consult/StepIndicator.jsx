@@ -16,9 +16,9 @@ export const StepIndicator = ({ currentStep }) => {
             {step.id < currentStep ? (
               <>
                 <div className="absolute inset-0 flex items-center" aria-hidden="true">
-                  <div className="h-0.5 w-full bg-black" />
+                  <div className="h-0.5 w-full bg-[#76b900]" />
                 </div>
-                <div className="relative flex h-8 w-8 items-center justify-center rounded-full bg-black hover:bg-gray-800">
+                <div className="relative flex h-8 w-8 items-center justify-center rounded-full bg-[#76b900] hover:bg-green-600">
                   <Check className="h-5 w-5 text-white" aria-hidden="true" />
                 </div>
               </>
@@ -27,8 +27,8 @@ export const StepIndicator = ({ currentStep }) => {
                 <div className="absolute inset-0 flex items-center" aria-hidden="true">
                   <div className="h-0.5 w-full bg-gray-200" />
                 </div>
-                <div className="relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-black bg-white" aria-current="step">
-                  <span className="h-2.5 w-2.5 rounded-full bg-black" />
+                <div className="relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-[#76b900] bg-white" aria-current="step">
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#76b900]" />
                 </div>
               </>
             ) : (

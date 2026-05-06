@@ -5,7 +5,7 @@ import { Lightbulb } from 'lucide-react';
 export const EmptyState = () => {
   return (
     <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-gray-300 bg-white p-12 text-center">
-      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-blue-50 text-blue-600 mb-6">
+      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#76b900]/10 text-[#76b900] mb-6">
         <Lightbulb className="h-8 w-8" />
       </div>
       <h3 className="text-xl font-bold text-gray-900 mb-2">No consultations yet</h3>

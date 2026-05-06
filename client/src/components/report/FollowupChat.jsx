@@ -70,8 +70,8 @@ export const FollowupChat = ({ sessionId, followups = [] }) => {
               
               {/* AI Answer */}
               <div className="flex justify-start items-start gap-2">
-                <div className="h-8 w-8 rounded-full bg-purple-100 flex flex-shrink-0 items-center justify-center">
-                  <Bot className="h-4 w-4 text-purple-600" />
+                <div className="h-8 w-8 rounded-full bg-[#76b900]/10 flex flex-shrink-0 items-center justify-center">
+                  <Bot className="h-4 w-4 text-[#76b900]" />
                 </div>
                 <div className="bg-white border border-gray-200 text-gray-800 rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%] text-sm shadow-sm prose prose-sm prose-p:my-1 prose-ul:my-1 prose-ol:my-1 max-w-full overflow-x-auto">
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>{f.answer}</ReactMarkdown>
@@ -83,8 +83,8 @@ export const FollowupChat = ({ sessionId, followups = [] }) => {
         
         {isLoading && (
           <div className="flex justify-start items-start gap-2 animate-pulse">
-            <div className="h-8 w-8 rounded-full bg-purple-100 flex flex-shrink-0 items-center justify-center">
-              <Bot className="h-4 w-4 text-purple-600" />
+            <div className="h-8 w-8 rounded-full bg-[#76b900]/10 flex flex-shrink-0 items-center justify-center">
+              <Bot className="h-4 w-4 text-[#76b900]" />
             </div>
             <div className="bg-gray-100 rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-gray-500">
               Consultant is typing...

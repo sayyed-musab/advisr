@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore.js';
 
 // Pages
+import { LandingPage } from '../pages/LandingPage.jsx';
 import { LoginPage } from '../pages/LoginPage.jsx';
 import { SignupPage } from '../pages/SignupPage.jsx';
 import { VerifyEmailPage } from '../pages/VerifyEmailPage.jsx';
@@ -17,8 +18,8 @@ export const AppRouter = () => {
 
   return (
     <Routes>
-      {/* Public / Redirect root */}
-      <Route path="/" element={user ? <Navigate to="/dashboard" /> : <Navigate to="/login" />} />
+      {/* Public Routes */}
+      <Route path="/" element={<LandingPage />} />
       
       {/* Auth Routes */}
       <Route path="/login" element={user ? <Navigate to="/dashboard" /> : <LoginPage />} />

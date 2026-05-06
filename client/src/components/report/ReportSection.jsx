@@ -5,8 +5,8 @@ import remarkGfm from 'remark-gfm';
 export const ReportSection = ({ title, content, type }) => {
   const getIcon = () => {
     switch (type) {
-      case 'diagnosis': return <Activity className="h-5 w-5 text-blue-500" />;
-      case 'actionPlan': return <Target className="h-5 w-5 text-purple-500" />;
+      case 'diagnosis': return <Activity className="h-5 w-5 text-[#76b900]" />;
+      case 'actionPlan': return <Target className="h-5 w-5 text-green-600" />;
       case 'prioritySteps': return <Zap className="h-5 w-5 text-yellow-500" />;
       default: return null;
     }
@@ -14,8 +14,8 @@ export const ReportSection = ({ title, content, type }) => {
 
   const getBgColor = () => {
     switch (type) {
-      case 'diagnosis': return 'bg-blue-50/50 border-blue-100';
-      case 'actionPlan': return 'bg-purple-50/50 border-purple-100';
+      case 'diagnosis': return 'bg-green-50/50 border-green-100';
+      case 'actionPlan': return 'bg-emerald-50/50 border-emerald-100';
       case 'prioritySteps': return 'bg-yellow-50/50 border-yellow-100';
       default: return 'bg-gray-50 border-gray-100';
     }
